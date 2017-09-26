@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.responseDao">
+<resultMap id="gameMap" type="com.chatRobot.model.response">
+    <id property="id" column="id" />
+    <result property="uid" column="uid"/>
+    <result property="sid" column="sid"/>
+    <result property="response_answer" column="response_answer"/>
+</resultMap>
+
+    <insert id="add" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO rp_response VALUES
+        <foreach collection="list" item="response" index="index" separator=",">
+            (null,#{response.uid},#{response.sid},#{response.response_answer})
+        </foreach>
+    </insert>
+
+    <select id="select" parameterType="selectTopic" resultType="int">
+        select response_answer FROM rp_response where uid=#{uid} AND sid=#{id}
+    </select>
+
+    <select id="count" parameterType="response" resultType="int">
+        select COUNT(*) from rp_response where uid=#{uid} and sid=#{sid}
+    </select>
+
+</mapper>

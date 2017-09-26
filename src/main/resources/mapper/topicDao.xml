@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.topicDao">
+<resultMap id="topicMap" type="com.chatRobot.model.topic">
+    <id property="id" column="id" />
+    <result property="topic_content" column="topic_content"/>
+    <result property="answer" column="answer"/>
+    <result property="sid" column="sid"/>
+</resultMap>
+
+<resultMap id="answerMap" type="com.chatRobot.model.answer">
+    <id property="aid" column="id"/>
+    <result property="content" column="topic_content"/>
+</resultMap>
+
+    <!--查找所有问题-->
+    <select id="select" resultMap="topicMap" parameterType="map">
+        SELECT id,topic_content FROM rp_topic
+        <where>
+            <if test="pid!=null">pid=#{pid}</if>
+            <if test="id!=null">AND id=#{id}</if>
+            <if test="type==0">AND type!=1</if>
+            <if test="type==1">AND type!=0</if>
+            <if test="type==2">AND type=2</if>
+        </where>
+    </select>
+    <!--查找对应的答案-->
+    <select id="selectAnswer" resultMap="answerMap" parameterType="int">
+        select id,topic_content FROM rp_topic WHERE pid=#{id};
+    </select>
+    <!--根据id查找题目或答案-->
+    <select id="selectone" resultMap="answerMap" parameterType="int">
+        select id,topic_content FROM re_topic WHERE id=#{id}
+    </select>
+
+    <!--答题-->
+    <select id="selectResponse" resultMap="topicMap" parameterType="Map">
+        SELECT t.id,topic_content,s.answer,s.id sid FROM rp_select_topic s JOIN  rp_topic t ON s.tid=t.id
+        <where>
+            <if test="pid!=null">s.pid=#{pid}</if>
+        </where>
+    </select>
+
+</mapper>

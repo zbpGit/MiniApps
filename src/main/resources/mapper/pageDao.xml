@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.pageDao">
+<resultMap id="pageMap" type="com.chatRobot.model.page">
+    <id property="id" column="id" />
+    <result property="uid" column="uid"/>
+    <result property="page_money" column="page_money"/>
+    <result property="page_number" column="page_number"/>
+    <result property="residue" column="residue"/>
+    <result property="page_time" column="page_time"/>
+    <result property="page_condition" column="page_condition"/>
+    <result property="view" column="view"/>
+</resultMap>
+
+    <insert id="add" parameterType="page" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO rp_page(null,#{uid},#{page_money},#{page_number},#{page_number},#{residue},#{page_time},#{page_condition},#{view})
+    </insert>
+
+    <update id="update" parameterType="page" >
+        UPDATE  rp_page
+        <set>
+            <if test="page_condition!=null">page_condition=#{page_condition},</if>
+            <if test="view!=null">view=#{view},</if>
+            <if test="residue!=null">residue=#{residue}</if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

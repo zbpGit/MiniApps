@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.userDao">
+<resultMap id="userMap" type="com.chatRobot.model.user">
+    <id property="id" column="id" />
+    <result property="name" column="name"/>
+    <result property="head" column="head"/>
+    <result property="count_income" column="count_income"/>
+    <result property="count_expend" column="count_expend"/>
+</resultMap>
+
+    <insert id="add" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO rp_user(null,#{name},#{head},#{count_income},#{count_expend})
+    </insert>
+
+    <!--跟距项目id查找发红包用户 -->
+    <select id="select" parameterType="int" resultType="user">
+        select u.name,u.head FROM rp_page p JOIN user u ON p.uid=u.id WHERE p.id=#{id}
+    </select>
+</mapper>

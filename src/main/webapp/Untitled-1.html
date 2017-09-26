@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    
+
+
+
+//创建异步对象  
+var xhr = new XMLHttpRequest();
+//设置请求的类型及url
+//post请求一定要添加请求头才行不然会报错
+xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+ xhr.open('post', 'localhost:8081/RedPage/topic/submit' );
+//发送请求
+var data = [{response_answer:[15,10,171,20,25,29,34,40,44,50],sid:[11,6,168,16,21,26,31,36,41,46],id:1}];
+xhr.send({map:JSON.stringify(data)});
+xhr.onreadystatechange = function () {
+    // 这步为判断服务器是否正确响应
+  if (xhr.readyState == 4 && xhr.status == 200) {
+    console.log(xhr.responseText);
+  } 
+};        
+
+</script>
+</body>
+</html>

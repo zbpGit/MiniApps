@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.privityDao">
+<resultMap id="privityMap" type="com.chatRobot.model.privity">
+    <id property="id" column="id" />
+    <result property="pid" column="pid"/>
+    <result property="percentum" column="percentum"/>
+    <result property="correct" column="correct"/>
+    <result property="money" column="income_money"/>
+    <result column="time" property="time"/>
+</resultMap>
+    <resultMap id="userMap" type="com.chatRobot.model.user">
+        <id column="usid" property="id"/>
+        <result column="name" property="name"/>
+        <result column="head" property="head"/>
+    </resultMap>
+
+    <select id="select" resultMap="privityMap" parameterType="int">
+        select id,pid,percentum,correct,u.id as usid,name,head,incom_money,time FROM rp_privity AS p JOIN income AS i ON p.uid=i.uid JOIN rp_user AS u ON p.uid=u.id WHERE p.pid=#{id}
+    </select>
+
+    <insert id="add" parameterType="map" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO rp_privity VALUES (null,#{pid},#{uid},#{percentum},#{correct})
+    </insert>
+
+    <select id="selectPrivity" resultMap="privityMap" parameterType="map">
+        select id,percentum,correct from rp_privity where pid=#{pid} and uid=#{uid}
+    </select>
+</mapper>
