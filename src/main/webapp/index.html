@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Title</title>
+    <script type="text/javascript" src="/JS/jquery.min.js"></script>
+    <script type="text/javascript" src="/JS/global.js"></script>
+</head>
+<body>
+<div ><h1>hahahaha</h1></div>
+
+<form method="post" action="topic/submit1" >
+    <input  id="i1" onblur="checkTitle()" type="text" name="li" style="width:200px"  >
+
+    <input type="submit">
+</form>
+</body>
+<script>
+    console.log(JSON.stringify({
+            "id": "12",
+            "sid":"1,2,3,5,8",
+            "response_answer":"30,40,50,60,70"
+        })
+    )
+    var json = [{'sid':1,'response_answer':2},{'sid':2,'response_answer':3},{'sid':4,'response_answer':5}];
+    var jsonStr = JSON.stringify(json);
+    function checkTitle(){
+        $.ajax({
+            url:'topic/submit',
+            type:'POST',
+            contentType:'application/json;charset=utf-8',
+            data:JSON.stringify({
+                "id": "12",
+                "sid":"1,2,3,5,8",
+                "response_answer":"30,40,50,60,70"
+            }),
+            traditional:true,
+            success:function(data){
+
+            }
+        })
+    }
+</script>
+</html>

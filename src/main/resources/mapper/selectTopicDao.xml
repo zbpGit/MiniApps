@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.selectTopicDao">
+<resultMap id="selectMap" type="com.chatRobot.model.selectTopic">
+    <id property="id" column="id" />
+    <result property="pid" column="pid"/>
+    <result property="tid" column="tid"/>
+    <result property="uid" column="uid"/>
+    <result property="answer" column="answer"/>
+</resultMap>
+
+    <insert id="add" parameterType="java.util.List" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO rp_user VALUES
+        <foreach collection="list" item="selectTopic" index="index" separator=",">
+            (null,#{pid},#{tid},#{uid},#{answer})
+        </foreach>
+    </insert>
+
+    <select id="select" parameterType="int" resultMap="selectMap">
+        select id,tid,uid,answer FROM  rp_select_topic where pid=#{id}
+    </select>
+
+    <select id="answer" parameterType="int" resultType="int">
+        select answer from rp_select_topic where id=#{id}
+    </select>
+</mapper>

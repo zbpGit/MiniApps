@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="${basePath}/js/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div ><h1>hahahaha</h1></div>
+
+    <form method="post" action="/topic/submit" >
+        <input onblur="checkTitle()" id="i1" type="text" name="li" style="width:200px" >
+        <input type="submit">
+    </form>
+</body>
+<script>
+    var json = [{'id':1,'name':'aaa'},{'id':2,'name':'bbb'},{'id':3,'name':'ccc'}];
+    var jsonStr = JSON.stringify(json);
+    function checkTitle(){
+        $.ajax({
+            url:'topic/submit',
+            type:'POST',
+            data:{"li":jsonStr},
+            traditional:true,
+            success:function(data){
+
+            }
+        })
+    }
+</script>
+</html>
