@@ -112,6 +112,7 @@ public class PayUtil {
         String paySign=MD5Util.MD5Encode(sb.toString(),null).toUpperCase();
         return paySign;
     }
+
     public static String create_RandomString(int length) { //length表示生成字符串的长度
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
@@ -122,6 +123,12 @@ public class PayUtil {
         }
         return sb.toString();
     }
+
+    public static String create_timestamp() {
+        return Long.toString(System.currentTimeMillis() / 1000);
+    }
+
+
 
     public static String create_Number(int length) { //length表示生成字符串的长度
         String base = "0123456789";

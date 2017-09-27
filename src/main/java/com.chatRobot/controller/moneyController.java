@@ -28,7 +28,7 @@ public class moneyController {
     @RequestMapping(value = "index",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String expend(String id){
-
+        
         return "";
     }
 
