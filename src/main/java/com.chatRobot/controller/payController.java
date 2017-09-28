@@ -122,6 +122,13 @@ public class payController {
         out.close();
     }
 
+    /**
+     *企业打款
+     * @return
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     @RequestMapping(value = "/remittance", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String remittance() throws ParserConfigurationException, SAXException, IOException {
