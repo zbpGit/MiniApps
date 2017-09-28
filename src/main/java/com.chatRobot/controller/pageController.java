@@ -86,6 +86,7 @@ public class pageController {
     public String tacit(@RequestBody Map<String,Object> map){
         String id=(String)map.get("id");
         prService.rank(Integer.parseInt(id));
+        return "";
     }
 
 
