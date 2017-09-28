@@ -12,7 +12,7 @@ public class privity {
     private user user;//答题用户
     private Integer money;//收入金额
     private String time;//时间
-
+    private Integer rank;//排名
 
     public Integer getId() {
         return id;
@@ -70,6 +70,14 @@ public class privity {
         this.time = time;
     }
 
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
     @Override
     public String toString() {
         return "privity{" +
@@ -80,6 +88,7 @@ public class privity {
                 ", user=" + user +
                 ", money=" + money +
                 ", time='" + time + '\'' +
+                ", rank=" + rank +
                 '}';
     }
 }

@@ -14,6 +14,7 @@ public class page {
     private String  page_condition;//状态
     private String  view;//能不能观看答案
     private String service;//服务费
+    private String headline;//标题
 
     public String getView() {
         return view;
@@ -87,6 +88,14 @@ public class page {
         this.service = service;
     }
 
+    public String getHeadline() {
+        return headline;
+    }
+
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
+
     @Override
     public String toString() {
         return "page{" +
@@ -99,6 +108,7 @@ public class page {
                 ", page_condition='" + page_condition + '\'' +
                 ", view='" + view + '\'' +
                 ", service='" + service + '\'' +
+                ", headline='" + headline + '\'' +
                 '}';
     }
 }

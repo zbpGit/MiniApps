@@ -12,10 +12,11 @@
     <result property="page_time" column="page_time"/>
     <result property="page_condition" column="page_condition"/>
     <result property="view" column="view"/>
+    <result property="headline" column="headline"/>
 </resultMap>
 
     <insert id="add" parameterType="page" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO rp_page(null,#{uid},#{page_money},#{page_number},#{page_number},#{residue},#{page_time},#{page_condition},#{view})
+        INSERT INTO rp_page VALUES (null,#{uid},#{page_money},#{page_number},#{page_number},#{residue},#{page_time},#{page_condition},#{view})
     </insert>
 
     <update id="update" parameterType="page" >
@@ -27,4 +28,28 @@
         </set>
         where id=#{id}
     </update>
+
+    <select id="selectMoney" parameterType="int" resultType="int">
+        select page_money FROM rp_page WHERE id=#{id}
+    </select>
+
+    <select id="number" parameterType="int" resultType="int">
+        select residue from rp_page WHERE id=#{id}
+    </select>
+
+    <select id="view" parameterType="int" resultType="string">
+        select view from rp_page WHERE id=#{id}
+    </select>
+
+    <select id="headline" parameterType="int" resultType="string">
+        SELECT headline from rp_page WHERE id=#{id}
+    </select>
+
+    <select id="pageSelect" parameterType="int" resultMap="pageMap">
+        select id,page_money,page_number,residue,page_time,headline FROM rp_page WHERE uid=#{id}
+    </select>
+    
+    <select id="selectNumber" parameterType="int" resultMap="pageMap">
+        select page_money,page_number,residue,headline FROM rp_page where id=#{id}
+    </select>
 </mapper>

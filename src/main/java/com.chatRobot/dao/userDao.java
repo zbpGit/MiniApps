@@ -19,4 +19,6 @@ public interface userDao {
      * @return
      */
     user select(Integer id);
+
+    Integer selectUser(String openid);
 }

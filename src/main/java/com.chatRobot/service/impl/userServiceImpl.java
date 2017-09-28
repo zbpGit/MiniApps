@@ -34,4 +34,9 @@ public class userServiceImpl implements userService {
     public user select(Integer id) {
         return dao.select(id);
     }
+
+    @Override
+    public Integer selectUser(String openid) {
+        return dao.selectUser(openid);
+    }
 }

@@ -31,4 +31,14 @@ public class privityServiceImpl implements privityService {
     public void add(Map map) {
         dao.add(map);
     }
+
+    @Override
+    public privity selectPrivity(Map map) {
+        return dao.selectPrivity(map);
+    }
+
+    @Override
+    public List<privity> rank(Integer id) {
+        return dao.rank(id);
+    }
 }

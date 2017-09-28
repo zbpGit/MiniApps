@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.incomeDao">
+    <resultMap id="userMap" type="com.chatRobot.model.user">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="head" column="head"/>
+        <result property="count_income" column="income_money"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
+    <select id="selectIncome" parameterType="map" resultType="int">
+        SELECT income_money FROM rp_income WHERE uid=#{uid} AND pid=#{pid};
+    </select>
+
+    <insert id="add" parameterType="map" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO rp_income VALUES (null,#{uid},#{income_money},#{pid},#{time})
+    </insert>
+
+    <select id="userIncome" parameterType="int" resultType="income">
+        select id,uid,income_money,pid,time from rp_income WHERE uid=#{uid}
+    </select>
+
+    <select id="selectUser" parameterType="int" resultMap="userMap">
+        select income_money,time,name,head from rp_income AS co JOIN rp_user AS us ON co.uid=us.id WHERE co.pid=#{id}
+    </select>
+</mapper>

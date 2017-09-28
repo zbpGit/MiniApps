@@ -10,6 +10,7 @@
     <result property="correct" column="correct"/>
     <result property="money" column="income_money"/>
     <result column="time" property="time"/>
+    <association property="user" javaType="com.chatRobot.model.user" resultMap="userMap"/>
 </resultMap>
     <resultMap id="userMap" type="com.chatRobot.model.user">
         <id column="usid" property="id"/>
@@ -22,10 +23,14 @@
     </select>
 
     <insert id="add" parameterType="map" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO rp_privity VALUES (null,#{pid},#{uid},#{percentum},#{correct})
+        INSERT INTO rp_privity values(null,#{pid},#{uid},#{percentum},#{correct})
     </insert>
 
     <select id="selectPrivity" resultMap="privityMap" parameterType="map">
         select id,percentum,correct from rp_privity where pid=#{pid} and uid=#{uid}
+    </select>
+
+    <select id="rank" resultMap="privityMap" parameterType="int">
+        select p.percentum,p.correct,u.name,u.head FROM rp_privity AS p JOIN rp_user AS u ON p.uid=u.id WHERE p.pid=#{id} ORDER BY p.correct desc
     </select>
 </mapper>

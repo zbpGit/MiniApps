@@ -6,6 +6,7 @@ import com.chatRobot.util.PayUtil;
 import com.chatRobot.util.TimeUtil;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,8 @@ public class topicController {
     private privityService prService;
     @Resource
     private responseService reService;
+    @Resource
+    private incomeService inService;
     /***
      * 选题接口
      * @return
@@ -338,19 +341,42 @@ public class topicController {
                 System.out.println("进入第二个循环");
             Integer id=Integer.parseInt(a);
             Integer an=seTopic.answer(id);
+            System.out.println(an);
             if(id==an){
                 number=+1;
             }
             }
             System.out.println("生成默契度");
+            System.out.println("默契度是"+number);
             Integer percent=number/10;
             String percentum=percent*100+"%";
             Map<String,Object> map2=new HashMap();
+            System.out.println("tid="+tid);
+            System.out.println("uid="+uid);
+            System.out.println("percentum"+percentum);
+            System.out.println("correct"+number);
             map2.put("pid",Integer.parseInt(tid));
             map2.put("uid",Integer.parseInt(uid));
             map2.put("percentum",percentum);
             map2.put("correct",number);
             prService.add(map2);
+            //添加收入
+            if(number>=8) {
+                Integer money = paService.selectMoney(Integer.parseInt(tid));
+                Map<String, Object> incomMap = new HashMap();
+                incomMap.put("uid", Integer.parseInt(uid));
+                incomMap.put("income_money", money);
+                incomMap.put("pid", Integer.parseInt(tid));
+                String time = TimeUtil.getTime();
+                incomMap.put("time", time);
+                inService.add(incomMap);
+                Integer num=paService.number(Integer.parseInt(tid));
+                num=num-1;
+                page pa=new page();
+                pa.setId(Integer.parseInt(tid));
+                pa.setPage_number(num);
+                paService.update(pa);
+            }
             Gson gson = new Gson();
             String ok = gson.toJson("1");
             return ok;
@@ -361,18 +387,28 @@ public class topicController {
 
     /***
      * 答完结果
-     * @param id   答题用户id
-     * @param tid  项目id
+     * id   答题用户id
+     * tid  项目id
      * @return  str  json字符串包含(correct 答对题数，percentum 默契度，income_money 抢红包抢到的钱)
      */
     @RequestMapping(value="result",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String result(String id,String tid){
+    public String result(@RequestBody Map<String,Object> map1){
         Map map=new HashMap();
-        String uid=(String)map.get("id");
-        String xid=(String)map.get("tid");
-
-        return "";
+        String uid=(String)map1.get("id");//用户id
+        String xid=(String)map1.get("tid");//项目id
+        map.put("uid",Integer.parseInt(uid));
+        map.put("pid",Integer.parseInt(xid));
+        privity pr=prService.selectPrivity(map);
+        Integer income_money=inService.selectIncome(map);
+        Map map2=new HashMap();
+        map2.put("privity",pr);
+        String view=paService.view(Integer.parseInt(xid));
+        map2.put("money",income_money);
+        map2.put("view",view);
+        Gson gson=new Gson();
+        String str=gson.toJson(map2);
+        return str;
     }
 
     /***

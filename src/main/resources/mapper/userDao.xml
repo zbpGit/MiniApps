@@ -12,11 +12,15 @@
 </resultMap>
 
     <insert id="add" parameterType="user" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO rp_user(null,#{name},#{head},#{count_income},#{count_expend})
+        INSERT INTO rp_user VALUES (null,#{name},#{sex},#{openid},#{head},#{count_income},#{count_expend})
     </insert>
 
     <!--跟距项目id查找发红包用户 -->
     <select id="select" parameterType="int" resultType="user">
         select u.name,u.head FROM rp_page p JOIN user u ON p.uid=u.id WHERE p.id=#{id}
+    </select>
+
+    <select id="selectUser" parameterType="String" resultType="int">
+        select id FROM rp_user WHERE openid=#{id}
     </select>
 </mapper>

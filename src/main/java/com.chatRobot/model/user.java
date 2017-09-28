@@ -12,6 +12,7 @@ public class user {
     private String openid;//用户openid
     private Integer count_income;//总收入
     private Integer count_expend;//总支出
+    private String time;//时间
 
     public Integer getId() {
         return id;
@@ -69,6 +70,14 @@ public class user {
         this.openid = openid;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "user{" +
@@ -79,6 +88,7 @@ public class user {
                 ", openid='" + openid + '\'' +
                 ", count_income=" + count_income +
                 ", count_expend=" + count_expend +
+                ", time='" + time + '\'' +
                 '}';
     }
 }

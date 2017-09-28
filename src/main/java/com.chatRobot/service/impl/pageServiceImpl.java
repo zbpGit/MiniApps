@@ -6,6 +6,7 @@ import com.chatRobot.service.pageService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by V on 2017/9/11.
@@ -32,6 +33,36 @@ public class pageServiceImpl implements pageService {
     @Override
     public void update(page page) {
         dao.update(page);
+    }
+
+    @Override
+    public Integer selectMoney(Integer id) {
+        return dao.selectMoney(id);
+    }
+
+    @Override
+    public Integer number(Integer id) {
+        return dao.number(id);
+    }
+
+    @Override
+    public String view(Integer id) {
+        return dao.view(id);
+    }
+
+    @Override
+    public String headline(Integer id) {
+        return dao.headline(id);
+    }
+
+    @Override
+    public List<page> pageSelect(Integer uid) {
+        return dao.pageSelect(uid);
+    }
+
+    @Override
+    public page selectNumber(Integer id) {
+        return dao.selectNumber(id);
     }
 
 

@@ -19,7 +19,12 @@ public interface privityService {
 
     /***
      * 添加默契度信息
-     * @param privity
+     * @param map
      */
     void add(Map map);
+
+    privity selectPrivity(Map map);
+
+    List<privity> rank(Integer id);
+
 }
