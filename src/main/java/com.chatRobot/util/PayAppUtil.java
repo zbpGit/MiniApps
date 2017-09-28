@@ -72,7 +72,7 @@ public class PayAppUtil {
      * @throws SAXException
      * @throws ParserConfigurationException
      */
-    public String AppRemit() throws IOException, SAXException, ParserConfigurationException {
+    public static String AppRemit() throws IOException, SAXException, ParserConfigurationException {
         SortedMap<String,Object> map = new TreeMap<String,Object>();
         map.put("mch_appid", "1111111111");//公众账号I
         map.put("mchid", "111111111111");//商户号
