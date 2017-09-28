@@ -112,6 +112,7 @@ public class PayUtil {
         String paySign=MD5Util.MD5Encode(sb.toString(),null).toUpperCase();
         return paySign;
     }
+
     public static String create_RandomString(int length) { //length表示生成字符串的长度
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
@@ -123,6 +124,12 @@ public class PayUtil {
         return sb.toString();
     }
 
+    public static String create_timestamp() {
+        return Long.toString(System.currentTimeMillis() / 1000);
+    }
+
+
+
     public static String create_Number(int length) { //length表示生成字符串的长度
         String base = "0123456789";
         Random random = new Random();
@@ -132,6 +139,34 @@ public class PayUtil {
             sb.append(base.charAt(number));
         }
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param characterEncoding
+     * @param packageParams
+     * @param API_KEY
+     * @return
+     */
+    public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String API_KEY) {
+        StringBuffer sb = new StringBuffer();
+        Set es = packageParams.entrySet();
+        Iterator it = es.iterator();
+        while(it.hasNext()) {
+            Map.Entry entry = (Map.Entry)it.next();
+            String k = (String)entry.getKey();
+            String v = (String)entry.getValue();
+            if(!"sign".equals(k) && null != v && !"".equals(v)) {
+                sb.append(k + "=" + v + "&");
+            }
+        }
+
+        sb.append("key=" + API_KEY);
+
+        //算出摘要
+        String mysign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toLowerCase();
+        String tenpaySign = ((String)packageParams.get("sign")).toLowerCase();
+        return tenpaySign.equals(mysign);
     }
 }
 
