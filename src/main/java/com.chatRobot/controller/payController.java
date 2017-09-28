@@ -122,7 +122,6 @@ public class payController {
         out.close();
     }
 
-
     /**
      *企业打款
      * @return
@@ -135,7 +134,6 @@ public class payController {
     public String remittance() throws ParserConfigurationException, SAXException, IOException {
         return PayAppUtil.AppRemit();
     }
-
 
     /**
      * 给微信返回参数
